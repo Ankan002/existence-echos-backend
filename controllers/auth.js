@@ -18,7 +18,8 @@ exports.signUp = async (req, res) => {
 
         if(isThereExistingUsername){
             return res.status(400).json({
-                message: 'There is an existing user with the same username'
+                message: 'There is an existing user with the same username',
+                success: false
             })
         }
 
@@ -42,7 +43,10 @@ exports.signUp = async (req, res) => {
     }
     catch(error){
         console.error(error.message)
-        res.status(500).send('Internal Server Error!')
+        res.status(500).json({
+            message:'Internal Server Error!',
+            success: false
+        })
     }
 }
 
@@ -62,7 +66,8 @@ exports.login = async (req, res) => {
 
         if(!user){
             return res.status(400).json({
-                message: 'Please try again with correct credentials'
+                message: 'Please try again with correct credentials',
+                success: false
             })
         }
 
@@ -70,7 +75,8 @@ exports.login = async (req, res) => {
 
         if(!passwordCompare){
             return res.status(400).json({
-                message: 'Please try again with correct credentials'
+                message: 'Please try again with correct credentials',
+                success: false
             })
         }
 
@@ -84,7 +90,10 @@ exports.login = async (req, res) => {
     }
     catch(error){
         console.error(error.message)
-        res.status(500).send('Internal Server Error!')
+        res.status(500).json({
+            message:'Internal Server Error!',
+            success: false
+        })
     }
 }
 
@@ -100,7 +109,36 @@ exports.getUser = async (req, res) => {
     }
     catch(error){
         console.error(message.error)
-        res.status(500).send('Internal Server Error!')
+        res.status(500).json({
+            message:'Internal Server Error!',
+            success: false
+        })
+    }
+}
+
+
+//PUT: Controller for updating the name of the diary. You need to be logged in to do so.
+exports.updateDiaryName = async (req, res) => {
+
+    const {diaryname} = req.body
+
+    try{
+        const userId = req.user
+
+        const newUser = {}
+
+        if(diaryname){newUser.diaryname= diaryname}
+
+        const updatedUserWithDiaryName = await User.findByIdAndUpdate(userId, {$set: newUser}, {new: true})
+
+        res.json(updatedUserWithDiaryName)
+    }
+    catch(error){
+        console.error(error.message)
+        res.status(500).json({
+            message: 'Internal Server Error!',
+            success: false
+        })
     }
 }
 
@@ -111,7 +149,8 @@ exports.fetchUser = async (req, res, next) => {
 
     if(!token){
         res.status(401).json({
-            error: 'Please authenticate using a valid token'
+            error: 'Please authenticate using a valid token',
+            success: false
         })
     }
 
@@ -123,6 +162,9 @@ exports.fetchUser = async (req, res, next) => {
     }
     catch(error){
         console.error(error.message)
-        res.status(500).send('Internal Server Error!')
+        res.status(500).json({
+            message:'Internal Server Error!',
+            success: false
+        })
     }
 }

@@ -2,7 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const router = express.Router()
 const {body} = require('express-validator')
-const {signUp, login, getUser, fetchUser} = require('../controllers/auth')
+const {signUp, login, getUser, fetchUser, updateDiaryName} = require('../controllers/auth')
 
 
 //POST: Route for signing up a new User. For performing this you need not to be signed in or validated user.
@@ -22,6 +22,10 @@ router.post('/user/login',[
 
 //GET: Route for getting the user information. For performing this you need to be validated as well as signed in
 router.get('/user/getuser', fetchUser, getUser)
+
+
+//PUT: Route for updating the diary name. For performing this you need to be validated as well as signed in.
+router.put('/user/updatediaryname', fetchUser, updateDiaryName)
 
 
 //export the routes for the main registry file

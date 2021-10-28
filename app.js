@@ -8,6 +8,7 @@ const app = express()
 
 //Importing all the routes
 const authRoutes = require('./routes/auth')
+const entryRoutes = require('./routes/entry')
 
 
 //Declaring the PORT Number
@@ -25,6 +26,7 @@ app.use(cors())
 
 //All the routes for the app
 app.use('/api', authRoutes)
+app.use('/api', entryRoutes)
 
 
 //Starting the App
