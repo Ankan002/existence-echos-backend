@@ -129,7 +129,7 @@ exports.updateDiaryName = async (req, res) => {
 
         if(diaryname){newUser.diaryname= diaryname}
 
-        const updatedUserWithDiaryName = await User.findByIdAndUpdate(userId, {$set: newUser}, {new: true})
+        const updatedUserWithDiaryName = await User.findByIdAndUpdate(userId, {$set: newUser}, {new: true}).select("-password")
 
         res.json(updatedUserWithDiaryName)
     }
