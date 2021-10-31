@@ -14,7 +14,6 @@ const entrySchema = new Schema({
     },
     significantevent: {
         type: String,
-        minlength: 5,
         required: false
     }
 },{timestamps: true})

@@ -16,11 +16,6 @@ router.post(
     body("entrybody")
       .isLength({ min: 10 })
       .withMessage("The entry body should be at least 10 characters long."),
-    body("significantevent")
-      .isLength({ min: 5 })
-      .withMessage(
-        "The significant event should be at least 5 characters long"
-      ),
   ],
   fetchUser,
   createNewEntry
