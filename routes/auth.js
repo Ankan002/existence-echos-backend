@@ -27,6 +27,11 @@ router.get('/user/getuser', fetchUser, getUser)
 //PUT: Route for updating the diary name. For performing this you need to be validated as well as signed in.
 router.put('/user/updatediaryname', fetchUser, updateDiaryName)
 
+//GET: TEST route and Controller
+router.get('/', (req, res) => {
+    res.json({message: 'Hello!'})
+})
+
 
 //export the routes for the main registry file
 module.exports = router
